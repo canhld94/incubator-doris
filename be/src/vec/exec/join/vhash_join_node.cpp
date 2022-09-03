@@ -1142,7 +1142,7 @@ Status HashJoinNode::_hash_table_build(RuntimeState* state) {
         _mem_used += block.allocated_bytes();
 
         if (block.rows() != 0) {
-            mutable_block.merge(block);
+            mutable_block.merge(std::move(block));
         }
 
         if (UNLIKELY(_mem_used - last_mem_used > BUILD_BLOCK_MAX_SIZE)) {
